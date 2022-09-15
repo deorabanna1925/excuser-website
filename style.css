@@ -14,7 +14,6 @@ body {
 .main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     height: 100vh;
 }
@@ -54,10 +53,9 @@ body {
 .main #excuse {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    margin-top: 50px;
     width: 100%;
-    height: 100vh;
 }
 
 .main #excuse p {
@@ -69,4 +67,83 @@ body {
 .main #excuse h3 {
     font-size: 1.5rem;
     margin: 1rem;
+}
+
+.main #excuse button {
+    width: 200px;
+    height: 50px;
+    margin: 10px;
+    border: none;
+    border-radius: 25px;
+    background-color: #fff;
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.main #excuse button:hover {
+    background-color: #ff4646;
+    color: #fff;
+}
+
+.main #favorites {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.main #favorites h2 {
+    font-size: 2rem;
+    margin: 1rem;
+    display: block;
+    text-align: center;
+}
+
+.main #favorites ul {
+    list-style: none;
+}
+
+.main #favorites ul li {
+    font-size: 1.5rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.main #favorites ul li p {
+    border: #000 2px solid;
+    padding: 12px;
+    border-radius: 25px 0 0 25px;; 
+}
+
+.main #favorites ul li h3 {
+    border: #000 2px solid;
+    padding: 10px;
+    background: #000;
+    color: #fff;
+}
+
+.main #favorites ul li button {
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    border: none;
+    border-radius: 0 25px 25px 0;
+    background-color: #ffffff;
+    border: #ff4646 solid 2px;
+    color: #ff4646;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.main #favorites ul li button:hover {
+    background-color: #ff4646;
+    color: #fff;
 }
