@@ -111,6 +111,8 @@ body {
     margin: 1rem;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
     justify-content: center;
     align-items: center;
 }
@@ -118,7 +120,7 @@ body {
 .main #favorites ul li p {
     border: #000 2px solid;
     padding: 12px;
-    border-radius: 25px 0 0 25px;; 
+    border-radius: 0 25px 0 25px; 
 }
 
 .main #favorites ul li h3 {
@@ -126,6 +128,7 @@ body {
     padding: 10px;
     background: #000;
     color: #fff;
+    border-radius: 25px 0 0 25px;
 }
 
 .main #favorites ul li button {

@@ -130,11 +130,6 @@ function showFavorites() {
         deleteFavorite(this.parentElement.firstChild.innerHTML);
     };
     favorite.appendChild(favoriteExcuse);
-    // marquee favoriteExcuse if too long
-    if (favoriteExcuse.innerHTML.length > 100) {
-        favoriteExcuse.style = "display: inline-block; width: 600px;";
-        favoriteExcuse.innerHTML = "<marquee>" + favoriteExcuse.innerHTML + "</marquee>";
-    }
     favorite.appendChild(favoriteCategory);
     favorite.appendChild(favoriteDelete);
     favoritesList.appendChild(favorite);
