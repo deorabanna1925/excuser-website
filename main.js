@@ -125,7 +125,7 @@ function showFavorites() {
     favoriteExcuse.innerHTML = favorites[i].excuse;
     favoriteCategory.innerHTML = firsletterCapital(favorites[i].category);
     var favoriteDelete = document.createElement("button");
-    favoriteDelete.innerHTML = "Delete";
+    favoriteDelete.innerHTML = "Remove";
     favoriteDelete.onclick = function () {
         deleteFavorite(this.parentElement.firstChild.innerHTML);
     };
