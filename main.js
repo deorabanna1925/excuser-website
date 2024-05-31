@@ -6,82 +6,60 @@ addCategories();
 getExcuse("");
 
 function addCategories() {
-  //Random, Family, Office, Children, College, Party
   var random = document.createElement("button");
   random.innerHTML = "Random";
   random.onclick = function () {
     getExcuse("");
   };
   categoryElement.appendChild(random);
-  var family = document.createElement("button");
-  family.innerHTML = "Family";
-  family.id = "family";
-  family.onclick = function () {
-    getExcuse("family");
-  };
-  categoryElement.appendChild(family);
-  var office = document.createElement("button");
-  office.innerHTML = "Office";
-  office.id = "office";
-  office.onclick = function () {
-    getExcuse("office");
-  };
-  categoryElement.appendChild(office);
-  var children = document.createElement("button");
-  children.innerHTML = "Children";
-  children.id = "children";
-  children.onclick = function () {
-    getExcuse("children");
-  };
-  categoryElement.appendChild(children);
-  var college = document.createElement("button");
-  college.innerHTML = "College";
-  college.id = "college";
-  college.onclick = function () {
-    getExcuse("college");
-  };
-  categoryElement.appendChild(college);
-  var party = document.createElement("button");
-  party.innerHTML = "Party";
-  party.id = "party";
-  party.onclick = function () {
-    getExcuse("party");
-  };
-  categoryElement.appendChild(party);
+  const uniqueCategories = new Set();
+  for (const use of localData) {
+    uniqueCategories.add(use.category);
+  }
+  for(let unique of uniqueCategories){
+    console.log(unique)
+    var button = document.createElement("button");
+    button.innerHTML = unique.charAt(0).toUpperCase() + unique.slice(1);
+    button.id = unique;
+    button.onclick = () => {
+      getExcuse(unique);
+    };
+    categoryElement.appendChild(button);
+  }
 }
 
 function getExcuse(category) {
-  excuseElement.innerHTML = "";
-  fetch("https://excuser.herokuapp.com/v1/excuse/" + category)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      var excuse = document.createElement("p");
-      var excuseCategory = document.createElement("h3");
-      var speaker = document.createElement("img");
-      var favorite = document.createElement("button");
-      excuseCategory.innerHTML = firsletterCapital(data[0].category);
-      excuse.innerHTML = data[0].excuse;
-      speaker.src =
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Speaker_Icon.svg/64px-Speaker_Icon.svg.png";
-      speaker.onclick = function () {
-        speak(data[0].excuse);
-      };
-      favorite.innerHTML = "Add to Favorite";
-      favorite.onclick = function () {
-        addFavorite(data[0].excuse, data[0].category);
-      };
-      excuseElement.appendChild(excuseCategory);
-      excuseElement.appendChild(excuse);
-      excuseElement.appendChild(favorite);
-      excuseElement.appendChild(speaker);
-    });
+  if(category == ""){
+    var random = Math.floor(Math.random() * localData.length)
+    var data = localData[random]
+    excuseElement.innerHTML = "";
+    var excuse = document.createElement("p");
+    var excuseCategory = document.createElement("h3");
+    var speaker = document.createElement("img");
+    var favorite = document.createElement("button");
+    excuseCategory.innerHTML = firsletterCapital(data.category);
+    excuse.innerHTML = data.excuse;
+    speaker.src =
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Speaker_Icon.svg/64px-Speaker_Icon.svg.png";
+    speaker.onclick = function () {
+      speak(data.excuse);
+    };
+    favorite.innerHTML = "Add to Favorite";
+    favorite.onclick = function () {
+      addFavorite(data.excuse, data.category);
+    };
+    excuseElement.appendChild(excuseCategory);
+    excuseElement.appendChild(excuse);
+    excuseElement.appendChild(favorite);
+    excuseElement.appendChild(speaker);
+  }else {
+    getAllCategoryData(category)
+  }
 }
 
 function addFavorite(excuse, category) {
   // save to local storage
-  // chceck if there is already a saved excuse
+  // check if there is already a saved excuse
   var favorites = JSON.parse(localStorage.getItem("favorites"));
   if (favorites == null) {
     favorites = [];
@@ -103,6 +81,32 @@ function addFavorite(excuse, category) {
       }
     }
   }
+}
+
+function getAllCategoryData(category){
+  var cateExcuses = localData.filter(excuse => excuse.category === category);
+  var random = Math.floor(Math.random() * cateExcuses.length)
+  var data = cateExcuses[random]
+  excuseElement.innerHTML = "";
+  var excuse = document.createElement("p");
+  var excuseCategory = document.createElement("h3");
+  var speaker = document.createElement("img");
+  var favorite = document.createElement("button");
+  excuseCategory.innerHTML = firsletterCapital(data.category);
+  excuse.innerHTML = data.excuse;
+  speaker.src =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Speaker_Icon.svg/64px-Speaker_Icon.svg.png";
+  speaker.onclick = function () {
+    speak(data.excuse);
+  };
+  favorite.innerHTML = "Add to Favorite";
+  favorite.onclick = function () {
+    addFavorite(data.excuse, data.category);
+  };
+  excuseElement.appendChild(excuseCategory);
+  excuseElement.appendChild(excuse);
+  excuseElement.appendChild(favorite);
+  excuseElement.appendChild(speaker);
 }
 
 showFavorites();
@@ -160,10 +164,11 @@ function speak(text) {
   msg.rate = 1;
   msg.pitch = 1;
   msg.volume = 1;
-  msg.voice = speechSynthesis.getVoices()[getRandomInt(66)];
+  msg.voice = speechSynthesis.getVoices()[1];
   window.speechSynthesis.speak(msg);
 }
 
 function getRandomInt(max) {
+  // max = 66
   return Math.floor(Math.random() * Math.floor(max));
 }
